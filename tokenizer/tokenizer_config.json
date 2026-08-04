@@ -1,0 +1,47 @@
+{
+  "final_tokenizer": "c2 (adopted by user decision)",
+  "final_tokenizer_sha256": "bea16a0e5f5d07307fd471f6aaf6e8c457589b5cc7e71486f0beca124a1cecb0",
+  "vocab_size": 32000,
+  "context_length": 2048,
+  "model_type": "BPE",
+  "character_coverage": 0.9995,
+  "byte_fallback": true,
+  "normalization_rule_name": "identity",
+  "add_dummy_prefix": false,
+  "remove_extra_whitespaces": false,
+  "split_by_unicode_script": true,
+  "split_by_whitespace": true,
+  "split_by_number": true,
+  "split_digits": true,
+  "max_sentencepiece_length": 16,
+  "unk_id": 0,
+  "unk_piece": "<unk>",
+  "bos_id": 1,
+  "bos_piece": "<s>",
+  "eos_id": 2,
+  "eos_piece": "</s>",
+  "pad_id": 3,
+  "pad_piece": "<pad>",
+  "user_defined_symbols": [
+    "<|system|>",
+    "<|user|>",
+    "<|assistant|>",
+    "<|n|>",
+    "<|tab|>"
+  ],
+  "training_sample": {
+    "docs": 606100,
+    "chars": 215915328,
+    "seed": 20260802,
+    "manifest": "training_sample_manifest.jsonl.gz"
+  },
+  "eval_sample": {
+    "docs": 46057,
+    "chars": 18291998,
+    "manifest": "tokenizer_eval_manifest.jsonl.gz"
+  },
+  "notes": [
+    "random_init模型将使用该Tokenizer；best_model.pt与该Tokenizer无初始化关系。",
+    "旧 tokenizer/zh_bpe_32k.model 仅作为对照保留，未被覆盖。"
+  ]
+}
