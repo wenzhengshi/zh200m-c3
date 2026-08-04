@@ -13,7 +13,10 @@ SentencePiece BPE Tokenizer，组织约 7.47 亿 Token 中文语料，在 A800 �
 pip install -r requirements.txt
 ```
 
-从 GitHub Release 下载权重 `zh200m-c3-196m-fp32.pt`，然后：
+权重下载：[Release v0.2 · zh200m-c3-196m-fp32.pt](https://github.com/wenzhengshi/train_model/releases/tag/v0.2)
+（FP32，784MB，SHA-256 `e876f400ef08ef75eefe13b10efd1012b010fb5d3567f97c5e19fc772b7a58d0`）
+
+下载后：
 
 ```bash
 # 本地 CPU / GPU 交互式生成（KV Cache + 实时逐 Token 输出）
