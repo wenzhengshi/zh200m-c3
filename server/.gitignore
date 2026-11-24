@@ -1,0 +1,7 @@
+﻿# 本地运行时产生的文件，不要提交
+admin_password.txt
+.admin_secret
+data/
+logs/
+*.log
+*.pt
