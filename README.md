@@ -19,6 +19,15 @@ SentencePiece BPE Tokenizer，组织约 7.47 亿 Token 中文语料，在 A800 �
 > FP32 纯 CPU 推理，约 12~15 token/s，全局单并发（多人使用需排队）。
 > 那台机器关机时站点不可用；想长期自用请按 [DATA_NOTICE.md](DATA_NOTICE.md) 自行复现。
 
+## 训练全过程
+
+从数据准备、冒烟测试、诊断训练到正式训练的完整记录：
+
+👉 **https://pages.tulingai.com/hosted/page-a78392aa80c04ec18bcaec6f51ecb5b3/index.html**
+
+含五个数据源的 token 明细、四个训练阶段、完整超参表、Checkpoint 结构、
+本地运行状态，以及下一阶段（继续预训练 → SFT → 对齐）的路线图。
+
 ## 快速开始
 
 ```bash
