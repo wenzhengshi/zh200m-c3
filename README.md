@@ -7,6 +7,18 @@ SentencePiece BPE Tokenizer，组织约 7.47 亿 Token 中文语料，在 A800 �
 > ⚠️ 本模型使用**非标准 RoPE 布局**（`repeat_interleave(2)` + 前/后半 `chunk` 旋转），
 > 与 LLaMA 默认布局不兼容。转 HF / GGUF 时必须保留此实现，否则输出错误。
 
+## 在线体验
+
+👉 **https://zh200m.xmkjsoft.com/**
+
+浏览器打开即可直接续写，无需安装、无需申请。同一站点还提供 WebSocket 接口
+（`wss://zh200m.xmkjsoft.com/ws`，协议见 `https://zh200m.xmkjsoft.com/api/info`），
+页面上有交流讨论区。
+
+> 供学习参考，仅供体验：服务跑在一台 i5-4460 四核 / 16 GB / **无 GPU** 的机器上，
+> FP32 纯 CPU 推理，约 12~15 token/s，全局单并发（多人使用需排队）。
+> 那台机器关机时站点不可用；想长期自用请按 [DATA_NOTICE.md](DATA_NOTICE.md) 自行复现。
+
 ## 快速开始
 
 ```bash
