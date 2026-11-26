@@ -1,0 +1,4 @@
+# 保留历史脚本的原始字节和换行符，确保 MANIFEST.sha256 可跨平台校验。
+legacy_20260802/** -text
+MANIFEST.sha256 text eol=lf
+README.md text eol=lf

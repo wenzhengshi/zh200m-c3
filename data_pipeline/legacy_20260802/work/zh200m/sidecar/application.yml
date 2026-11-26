@@ -1,0 +1,12 @@
+llamacpp:
+  base-url: http://127.0.0.1:8080
+  model: q5_k_m        # q4_k_m | q5_k_m | q8_0
+  threads: 4
+  context: 2048
+  timeout-seconds: 120
+  streaming: true
+
+spring:
+  threads:
+    virtual:
+      enabled: true

@@ -1,0 +1,35 @@
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/audits -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs/archives -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs/cleaned -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs/pending -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/logs -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/outputs -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/outputs/comment2019zh -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/outputs/cross_source -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/outputs/webText2019zh -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/outputs/wiki2019zh -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/reference -> 
+d /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/scripts -> 
+f /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/CODEX_TASK.md -> 
+f /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/SOURCE_PATHS.tsv -> 
+f /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/STATUS.md -> 
+f /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/TREE.txt -> 
+f /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/logs/build_workspace.log -> 
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/audits/wiki2019zh_full_audit_v1 -> /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/cpt_modern_v1/audits/wiki2019zh_full_audit_v1_20260801_192933
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/audits/wiki2019zh_targeted_error_audit_v1 -> /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/cpt_modern_v1/audits/wiki2019zh_targeted_error_audit_v1_20260801_201355
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/audits/wiki2019zh_tier_dryrun_v1 -> /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/cpt_modern_v1/audits/wiki2019zh_tier_dryrun_v1_20260801_195347
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/audits/wiki2019zh_tier_dryrun_v2 -> /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/cpt_modern_v1/audits/wiki2019zh_tier_dryrun_v2_20260801_205142
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs/archives/comment2019zh_corpus.zip -> /home/xmkjsoft/modern_chinese_data/cluecorpus_small/comment2019zh_corpus.zip
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs/archives/webText2019zh_corpus.zip -> /home/xmkjsoft/modern_chinese_data/cluecorpus_small/webText2019zh_corpus.zip
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs/archives/wiki2019zh_corpus.zip -> /home/xmkjsoft/modern_chinese_data/cluecorpus_small/wiki2019zh_corpus.zip
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs/cleaned/news2016zh -> /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/cpt_modern_v1/curated/news2016zh_v22/news_freeze_v3_2
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs/cleaned/zhwikisource_classics -> /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/cpt_modern_v1/curated/zhwikisource_classics_v6
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs/pending/comment2019zh -> /home/xmkjsoft/modern_chinese_data/cluecorpus_small/extracted/comment2019zh
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs/pending/webText2019zh -> /home/xmkjsoft/modern_chinese_data/cluecorpus_small/extracted/webText2019zh
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/inputs/pending/wiki2019zh -> /home/xmkjsoft/modern_chinese_data/cluecorpus_small/extracted/wiki2019zh
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/reference/model.json -> /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/configs/model.json
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/reference/zh_bpe_32k.model -> /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/tokenizer/zh_bpe_32k.model
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/scripts/cpt_modern_v1_all -> /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/cpt_modern_v1
+l /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace/scripts/wiki2019zh_tier_dryrun_v2_fixed -> /home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/wiki2019zh_tier_dryrun_v2_fixed

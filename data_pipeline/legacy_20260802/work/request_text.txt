@@ -1,0 +1,733 @@
+﻿你现在接管一个中文小型语言模型的预训练语料清洗项目。请以“数据质量优先、全程可审计、绝不破坏原始数据”为最高原则工作。
+
+# 一、项目位置
+
+项目根目录：
+
+```text
+/home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime
+```
+
+统一清洗工作区：
+
+```text
+/home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace
+```
+
+进入工作区后，必须先完整阅读：
+
+```text
+STATUS.md
+CODEX_TASK.md
+SOURCE_PATHS.tsv
+TREE.txt
+```
+
+同时检查以下目录：
+
+```text
+inputs/
+audits/
+scripts/
+reference/
+outputs/
+logs/
+```
+
+不要只根据说明文件判断现状，必须以本地实际存在的文件、Manifest、summary JSON和SHA256校验结果为准。
+
+# 二、模型和Tokenizer背景
+
+模型：
+
+```text
+中文 Decoder-only Transformer
+参数量：196,153,216
+上下文长度：2048
+SentencePiece BPE：32K
+```
+
+当前Tokenizer：
+
+```text
+/home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/tokenizer/zh_bpe_32k.model
+```
+
+已知SHA256：
+
+```text
+af0c6373494745206027dcebb44985a4c5a80670d81db8d9c87ec4c2aa510f50
+```
+
+旧模型权重：
+
+```text
+/home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/best_model.pt
+```
+
+旧模型权重SHA256：
+
+```text
+716c61175c9903c23c1c8033485de3123014fe6c6edd06da38d4ec12a22a7e41
+```
+
+硬性规定：
+
+```text
+绝不能修改、覆盖、移动、重命名或重新保存 best_model.pt。
+```
+
+该权重只用于后续效果对照，不得作为新一轮从零预训练的初始化权重。
+
+# 三、目录含义
+
+## 已清洗或冻结语料
+
+```text
+inputs/cleaned/news2016zh
+inputs/cleaned/zhwikisource_classics
+```
+
+这些路径是软链接。
+
+禁止直接修改软链接目标中的任何文件。
+
+### news2016zh
+
+新闻数据已经完成清洗和冻结。
+
+优先检查：
+
+```text
+inputs/cleaned/news2016zh/summary_news_freeze_v3_2.json
+inputs/cleaned/news2016zh/SHA256SUMS.txt
+```
+
+只有本地文件确认过的数据才能写入新的汇总报告，不得根据旧记录猜测文档数或Token数。
+
+### zhwikisource_classics
+
+这是中文维基文库古籍，不是wiki2019zh。
+
+可能包含：
+
+```text
+《全唐诗》
+《汉书》
+《诗经》
+以及其他古籍
+```
+
+当前应重点确认：
+
+```text
+zhwikisource_classics_v6是否已正式执行
+accepted_final.jsonl是否存在
+finalize_report.json是否存在
+SHA256是否完整
+硬网页残留审计是否为0
+最终SentencePiece Token是否已经精确统计
+```
+
+不要重新覆盖v5或v6目录。
+
+如果v6未执行，应先报告现状，不得擅自重跑会覆盖已有目录的脚本。
+
+## 尚未完成清洗的语料
+
+```text
+inputs/pending/wiki2019zh
+inputs/pending/webText2019zh
+inputs/pending/comment2019zh
+```
+
+这些也是软链接，禁止直接修改。
+
+所有输出必须写入：
+
+```text
+outputs/wiki2019zh/
+outputs/webText2019zh/
+outputs/comment2019zh/
+outputs/cross_source/
+```
+
+# 四、不可违反的硬规则
+
+1. 不得修改原始语料。
+
+2. 不得修改canonical ZIP。
+
+3. 不得修改任何已冻结语料。
+
+4. 不得覆盖现有审计目录。
+
+5. 每次运行必须建立一个带版本号或时间戳的新目录。
+
+6. 每个输出目录必须包含：
+
+```text
+summary.json
+run.log
+SHA256SUMS.txt
+输入文件或输入目录说明
+输入SHA256
+输出SHA256
+文档数量
+字符数量
+保留数量
+删除数量
+复核数量
+每条删除或修改原因
+```
+
+7. 所有文档数、字符数和Token数必须由程序精确计算，禁止估算。
+
+8. REVIEW内容不得直接进入训练集。
+
+9. 不得把启发式规则命中的候选直接等同于应删除内容。
+
+10. 每次修改分类规则后，必须生成误判抽样报告。
+
+11. 每次正式清洗前，必须先生成清洗预览。
+
+12. 清洗预览必须包含：
+
+```text
+document_id
+原始文本
+清洗后文本
+执行动作
+删除或修改原因
+修改前字符数
+修改后字符数
+文本SHA256
+```
+
+13. 对少量复杂异常应进入人工复核清单，不得为了清除极少残留而不断扩大正则，造成大规模误杀。
+
+14. 所有脚本必须支持重复审计，但不得覆盖旧结果。
+
+15. 任何自动删除规则都必须通过随机抽样和高风险边界样本审查。
+
+# 五、当前wiki2019zh状态
+
+实际输入：
+
+```text
+inputs/pending/wiki2019zh
+```
+
+canonical ZIP：
+
+```text
+inputs/archives/wiki2019zh_corpus.zip
+```
+
+已知canonical ZIP SHA256：
+
+```text
+b42e010ffd111de1a010e43db043122ce55ffdd2f93ab4b7712d96b7d2043070
+```
+
+已确认：
+
+```text
+文件数：255
+文档边界：一个或多个空行
+文档总数：1,018,692
+```
+
+输入数据是已经抽取的CLUE纯文本，不是Wikipedia XML或JSON。
+
+无法从该压缩包恢复：
+
+```text
+原始词条标题
+页面ID
+原始Wiki结构
+模板参数
+被删除的公式和实体
+```
+
+不要尝试伪造或推测这些缺失信息。
+
+已存在的审计可能包括：
+
+```text
+audits/wiki2019zh_full_audit_v1
+audits/wiki2019zh_targeted_error_audit_v1
+audits/wiki2019zh_tier_dryrun_v1
+audits/wiki2019zh_tier_dryrun_v2
+```
+
+v3可能尚未运行。必须以本地是否存在以下目录为准：
+
+```text
+audits/wiki2019zh_tier_dryrun_v3
+```
+
+或者检查：
+
+```text
+scripts/wiki2019zh_tier_dryrun_v3_fixed
+```
+
+不要假设v3已经完成。
+
+# 六、wiki2019zh已知问题
+
+数据中存在以下抽取损伤：
+
+```text
+空书名号：《》
+空引号：「」
+空括号：（，）
+formula_1、formula_2等公式占位符
+-{...}-繁简转换标记
+HTML和Wiki残留
+URL与参考资料尾部
+整段外语文献
+缺失主语
+缺失词条标题
+缺失坐标
+缺失面积
+缺失人口
+空列表标题
+管道表格残骸
+列表或目录空壳
+尾部截断
+控制字符
+Unicode替换字符
+```
+
+已知v2规则存在系统性误判，包括：
+
+1. 将正常“主演”“导演”“作者”相关句子误判为语义空洞。
+
+2. 因一个坐标、面积或人口字段缺失而删除整篇仍有价值的地理词条。
+
+3. 正文完整，但尾部只有：
+
+```text
+下辖以下地区：
+```
+
+时误删整篇。
+
+4. 将：
+
+```text
+某街道，是下辖的一个乡镇级行政单位。
+```
+
+错误放入严格干净A。
+
+5. 仅因末尾缺少句号而大量命中“尾部不完整”。
+
+因此，不得直接使用v2生成正式训练集。
+
+# 七、第一阶段任务：接管并完成wiki2019zh
+
+请按以下顺序执行。
+
+## 第一步：只读盘点
+
+检查：
+
+```text
+audits/wiki2019zh_tier_dryrun_v1
+audits/wiki2019zh_tier_dryrun_v2
+audits/wiki2019zh_tier_dryrun_v3
+scripts/wiki2019zh_tier_dryrun_v3_fixed
+```
+
+验证所有现有：
+
+```text
+SHA256SUMS.txt
+summary JSON
+Manifest gzip
+文档总数
+```
+
+输出一份接管盘点报告到：
+
+```text
+outputs/wiki2019zh/takeover_inventory_v1_<时间戳>/
+```
+
+盘点阶段不得重新扫描全部语料，除非现有结果缺失或校验失败。
+
+## 第二步：审查最新Tier规则
+
+如果v3尚未执行：
+
+1. 阅读v3脚本；
+2. 执行Python语法检查；
+3. 验证其输入路径和v2 Manifest；
+4. 在新目录中执行v3干跑；
+5. 生成v2到v3转移矩阵；
+6. 生成高风险转移抽样。
+
+如果v3已经执行：
+
+1. 验证结果；
+2. 审查高风险转移；
+3. 不重复运行已有成功结果。
+
+重点检查：
+
+```text
+A -> DROP
+A -> REVIEW
+B -> DROP
+B -> REVIEW
+DROP -> A
+DROP -> B
+REVIEW -> A
+REVIEW -> B
+```
+
+重点原因：
+
+```text
+short_missing_title_or_subject
+long_missing_title_or_subject
+local_semantic_or_numeric_hole_cleanable
+dense_or_core_semantic_numeric_hole
+substantive_body_with_empty_tail_heading
+missing_parent_admin_definition_cleanable
+formula_placeholder
+list_intro_without_list
+definite_incomplete_tail
+dense_or_short_multiple_empty_slots
+```
+
+## 第三步：决定是否还需要v4
+
+只有满足以下任一条件才能建立v4：
+
+```text
+存在系统性误杀
+存在系统性漏判
+规则命中规模与人工抽样严重不一致
+清洗动作无法安全落地
+```
+
+不得因为个别异常无限增加规则版本。
+
+如果误判已经降到局部个案，应停止修改分类器，把个案放入人工复核。
+
+## 第四步：生成清洗预览
+
+在Tier规则稳定后，建立：
+
+```text
+outputs/wiki2019zh/cleaning_preview_v1_<时间戳>/
+```
+
+只生成预览，不生成正式训练文件。
+
+清洗动作应分为：
+
+### 可安全自动执行
+
+```text
+删除控制字符
+删除Unicode替换字符所在的不可恢复短残片
+规范化明确的-{...}-转换标记
+删除独立URL行
+删除独立参考资料行
+删除空书名号、空引号、空语言字段
+删除明确的HTML软标签
+删除正文末尾的空列表标题
+删除独立的外语参考文献段
+```
+
+### 禁止直接自动执行
+
+```text
+根据缺失信息自行补全实体
+补写标题
+补写坐标
+补写人口
+补写面积
+补写公式
+补写作者、导演、演员
+根据常识改写事实
+将formula_x猜测成真实公式
+```
+
+### 必须进入REVIEW
+
+```text
+公式是知识核心
+第一句缺失主语或标题但正文较长
+密集语义空洞
+表格转换后无法恢复关系
+外语正文占比较高
+多处实体缺失
+清洗后语义不连贯
+```
+
+## 第五步：正式生成候选集
+
+预览通过后，再建立新版本目录：
+
+```text
+outputs/wiki2019zh/curated_candidate_v1_<时间戳>/
+```
+
+建议输出：
+
+```text
+tier_a_clean.jsonl
+tier_b_clean.jsonl
+review.jsonl
+drop.jsonl
+cleaning_log.jsonl
+document_manifest.jsonl.gz
+summary.json
+SHA256SUMS.txt
+```
+
+A和清洗后的B必须分开保存，不能提前混合。
+
+## 第六步：清洗后残留审计
+
+必须重新扫描候选集，检查：
+
+```text
+formula_x
+HTML残留
+Wiki标记
+空书名号
+空括号
+空语言字段
+控制字符
+Unicode替换字符
+URL
+电子邮件
+缺失主语
+明显数值空洞
+表格残骸
+极端符号比例
+异常外语比例
+异常短文
+异常长文
+```
+
+硬残留不得通过“忽略”方式清零。
+
+应区分：
+
+```text
+硬错误
+可接受风格差异
+启发式复核候选
+```
+
+## 第七步：去重
+
+完成清洗后，进行：
+
+```text
+精确文本去重
+标准化文本去重
+近似重复检测
+转载或同模板页面检测
+```
+
+保留：
+
+```text
+重复簇ID
+保留文档ID
+删除文档ID
+相似度
+删除理由
+优先级
+SHA256
+```
+
+同一模板生成的大量法国市镇、美国非建制地区、小行星等词条，应单独评估模板重复密度，不能只做完全重复。
+
+## 第八步：冻结和Token统计
+
+只有在以下条件全部满足后才能冻结：
+
+```text
+规则稳定
+清洗预览通过
+硬残留审计通过
+去重完成
+REVIEW已隔离
+所有SHA256通过
+```
+
+然后使用当前SentencePiece模型精确统计：
+
+```text
+文档数
+字符数
+Token数
+UNK数
+UNK率
+长度分布
+```
+
+禁止估算Token。
+
+# 八、后续数据源顺序
+
+完成wiki2019zh后依次处理：
+
+```text
+webText2019zh
+comment2019zh
+```
+
+## webText2019zh
+
+重点审计：
+
+```text
+广告
+SEO文本
+导航
+隐私信息
+联系方式
+网页模板
+重复转载
+机器翻译
+乱码
+论坛签名
+无正文页面
+```
+
+## comment2019zh
+
+该数据源风险最高。
+
+重点审计：
+
+```text
+短文本重复
+辱骂
+广告
+手机号
+QQ号
+微信号
+身份证号
+住址
+个人隐私
+复制文章
+灌水
+表情符号堆积
+纯标点
+机器人内容
+模板回复
+```
+
+评论数据最终进入训练混合的比例必须严格限制，不得因数量大而大量保留。
+
+# 九、跨来源处理
+
+各数据源单独冻结后，再进行：
+
+```text
+news2016zh
+zhwikisource_classics
+wiki2019zh
+webText2019zh
+comment2019zh
+```
+
+之间的跨来源去重。
+
+不得在单个数据源尚未冻结时提前混合。
+
+跨来源去重完成后，再进行Tokenizer复用或重训的A/B审计。
+
+不要在语料尚未全部冻结时决定重训Tokenizer。
+
+# 十、工作方式
+
+每开始一个阶段，先说明：
+
+```text
+输入
+输出
+是否只读
+是否会修改数据
+预计生成哪些文件
+验证条件
+```
+
+每完成一个阶段，输出：
+
+```text
+完成内容
+精确统计
+发现的问题
+未解决问题
+下一步建议
+结果目录
+SHA256校验状态
+```
+
+不要给出模糊结论，例如：
+
+```text
+大概完成
+应该没问题
+看起来可以
+```
+
+必须明确区分：
+
+```text
+已验证
+尚未验证
+推测
+人工复核候选
+```
+
+# 十一、立即开始的动作
+
+现在请执行以下工作：
+
+1. 进入：
+
+```text
+/home/xmkjsoft/jicreate_chinese_lm_0.2b_runtime/data/codex_cleaning_workspace
+```
+
+2. 阅读：
+
+```text
+STATUS.md
+CODEX_TASK.md
+SOURCE_PATHS.tsv
+TREE.txt
+```
+
+3. 检查所有软链接是否有效。
+
+4. 验证已清洗语料和wiki2019zh已有审计的SHA256。
+
+5. 判断wiki2019zh v3是否已执行。
+
+6. 生成只读接管盘点报告。
+
+7. 向我报告当前准确状态和下一条可直接执行的命令。
+
+在完成盘点前：
+
+```text
+禁止正式清洗
+禁止生成训练文件
+禁止修改输入
+禁止重新运行已经成功且校验通过的旧版本
+```

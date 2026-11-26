@@ -91,8 +91,17 @@ python inference/interactive_c3_747m_kvcache.py --checkpoint checkpoint_tokens_7
 （CC BY-SA）。
 
 **本仓库不包含语料正文**，只包含数据清单（`data/` 下的 manifest）与复现说明。
-如需复现训练集，请自行按 CLUE 官方流程申请下载后运行清洗脚本，详见
-[DATA_NOTICE.md](DATA_NOTICE.md)。
+如需复现训练集，请自行按 CLUE 官方流程申请下载后运行
+[数据清洗与构建流程](data_pipeline/README.md)，详见 [DATA_NOTICE.md](DATA_NOTICE.md)。
+
+## 数据清洗与构建流程
+
+[`data_pipeline/`](data_pipeline/README.md) 保存正式预训练前使用的中文语料审计、
+清洗、去重、冻结、Tokenizer A/B、采样、拼接和最终校验脚本。历史工作目录按原结构归档，
+并附带逐文件 SHA-256 清单。
+
+该目录只包含代码、说明和校验信息，不包含原始正文、清洗后的正文或 `train.bin`。
+上游数据的授权、署名、隐私和再分发条件见 [DATA_NOTICE.md](DATA_NOTICE.md)。
 
 ## 目录
 
@@ -103,6 +112,7 @@ configs/    训练配置
 tokenizer/  冻结中文 Tokenizer
 inference/  CPU/GPU 推理与 Web 界面
 data/       训练数据清单（不含正文）
+data_pipeline/ 数据清洗、去重、拼接与校验流程
 ```
 
 ## 许可

@@ -32,4 +32,6 @@ webText2019zh、wiki2019zh、news2016zh、comment2019zh 均来自
    `train.bin` / `validation.bin` / `test.bin`；
 4. 使用 `training/train_c3_a800.py` 训练。
 
-清洗与打包脚本的详细说明请参考仓库内脚本与 manifest 字段定义。
+清洗与打包脚本的完整历史快照见
+[`data_pipeline/`](data_pipeline/README.md)，其中包含 146 个原始脚本与说明文件及
+逐文件 SHA-256 清单。复现时仍需自行取得 CLUE 官方授权，仓库不分发任何语料正文。
